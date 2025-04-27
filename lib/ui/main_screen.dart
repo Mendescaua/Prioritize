@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:prioritize/components/bottom_modal.dart';
+import 'package:prioritize/ui/components/bottom_modal.dart';
 import 'package:prioritize/ui/config_screen.dart';
 import 'package:prioritize/ui/newtask_screen.dart';
 import 'package:prioritize/ui/task_screen.dart';

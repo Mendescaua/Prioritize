@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prioritize/services/firestore.dart';
 import 'package:prioritize/utils/Theme.dart';
+import 'package:provider/provider.dart';
 
 class NewTask extends StatefulWidget {
   const NewTask({super.key});
@@ -14,8 +14,6 @@ class _NewTaskState extends State<NewTask> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
 
-  final fireStore = FirestoreService();
-
   int selectedIndex = 0;
   final List<String> priorities = ['Low', 'Medium', 'High'];
 
@@ -25,7 +23,7 @@ class _NewTaskState extends State<NewTask> {
     String priority = priorities[selectedIndex];
 
     if (title.isNotEmpty) {
-      await fireStore.addTask(title, description, priority);
+      await context.read().addTask(title, priority);
       Navigator.pop(context);
     } else {
       // Show error message

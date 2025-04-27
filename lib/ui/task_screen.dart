@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prioritize/components/app_bar.dart';
-import 'package:prioritize/services/firestore.dart';
+import 'package:prioritize/ui/components/app_bar.dart';
 import 'package:prioritize/utils/Theme.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -15,10 +14,9 @@ class _TaskScreenState extends State<TaskScreen> {
   DateTime focusedDay = DateTime.now();
   DateTime? selectedDay;
 
-  final fireStore = FirestoreService();
 
   void taskDay() async {
-    await fireStore.getTasks();
+    
   }
 
   @override
