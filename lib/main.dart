@@ -19,7 +19,12 @@ void main() async {
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtvam9oYmV6Y3dnenpkaWJxZnlpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU3OTA5NjIsImV4cCI6MjA2MTM2Njk2Mn0.0eguRRnDQE7_LkYamMetdo9dYdhJ-Go0DcQyPmicSV4',
   );
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => TaskController())],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -27,24 +32,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => TaskController(),
-      child: MaterialApp(
-        title: 'Prioritize',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          appBarTheme: AppBarTheme(backgroundColor: ThemeColor.background),
-          scaffoldBackgroundColor: ThemeColor.background,
-          fontFamily: 'Poppins',
-        ),
-        home: const AuthGate(),
-        routes: {
-          '/splash': (context) => const SplashScreen(),
-          '/home': (context) => const MainScreen(),
-          '/login': (context) => const LoginScreen(),
-          '/register': (context) => const RegisterScreen(),
-        },
+    return MaterialApp(
+      title: 'Prioritize',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        appBarTheme: AppBarTheme(backgroundColor: ThemeColor.background),
+        scaffoldBackgroundColor: ThemeColor.background,
+        fontFamily: 'Poppins',
       ),
+      home: const AuthGate(),
+      routes: {
+        '/splash': (context) => const SplashScreen(),
+        '/home': (context) => const MainScreen(),
+        '/login': (context) => const LoginScreen(),
+        '/register': (context) => const RegisterScreen(),
+      },
     );
   }
 }

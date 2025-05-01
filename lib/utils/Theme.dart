@@ -4,4 +4,5 @@ class ThemeColor {
   static const background = Color(0xFFFFFFFF);
   static const primary = Color(0xFF2C2D33);
   static const txtFieldColor = Color(0xFFE5E6EB);
+  static const txtFieldCompleted = Color.fromARGB(255, 28, 143, 38);
 }

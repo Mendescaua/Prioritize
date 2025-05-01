@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prioritize/controllers/task_controller.dart';
 import 'package:prioritize/utils/Theme.dart';
 import 'package:provider/provider.dart';
 
@@ -23,7 +24,7 @@ class _NewTaskState extends State<NewTask> {
     String priority = priorities[selectedIndex];
 
     if (title.isNotEmpty) {
-      await context.read().addTask(title, priority);
+      await context.read<TaskController>().addTask(title, priority);
       Navigator.pop(context);
     } else {
       // Show error message

@@ -1,5 +1,6 @@
 import 'package:prioritize/models/task_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:uuid/uuid.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +21,15 @@ class TaskController with ChangeNotifier {
     return _tasks;
   }
 
+  List<TaskModel> getTasksByDate(DateTime? date) {
+  if (date == null) return tasks;
+
+  return tasks.where((task) {
+    return isSameDay(task.createdAt, date);
+  }).toList();
+}
+
+
   Future<void> addTask(String title, String priority) async {
     final task = TaskModel(
       id: _uuid.v4(),
@@ -34,6 +44,16 @@ class TaskController with ChangeNotifier {
 
     // Atualiza a lista local e notifica a UI
     _tasks.add(task);
+    notifyListeners();
+  }
+
+  Future<void> updateTask(TaskModel task) async {
+    // Atualiza a tarefa no banco de dados
+    await _client.from('TASKS').update(task.toJson()).eq('id', task.id);
+
+    // Atualiza a tarefa localmente e notifica a UI
+    final index = _tasks.indexWhere((t) => t.id == task.id);
+    _tasks[index] = task;
     notifyListeners();
   }
 
